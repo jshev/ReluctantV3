@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class objectScript : MonoBehaviour
 {
     public Sprite newSprite;
-    public GameObject slot;
+    public string newTxt;
+    //public GameObject slot;
+    public GameObject[] Slots;
     public Text inventoryTxt;
 
     // Start is called before the first frame update
@@ -23,8 +25,31 @@ public class objectScript : MonoBehaviour
 
     void OnCollisionEnter2D (Collision2D col)
     {
-    	slot.GetComponent<SpriteRenderer>().sprite = newSprite;
-        inventoryTxt.text = "This small piece of leather holds your entire life";
-        gameObject.SetActive(false);
+        foreach(GameObject slot in Slots) {
+            if (slot.GetComponent<SpriteRenderer>().sprite.name == "empty") {
+                slot.GetComponent<SpriteRenderer>().sprite = newSprite;
+                inventoryTxt.text = newTxt;
+                gameObject.SetActive(false);
+                break;
+            } else {
+                continue;
+            }
+        }
+    	//slot.GetComponent<SpriteRenderer>().sprite = newSprite;
+        //inventoryTxt.text = "This small piece of leather holds your entire life";
+        //gameObject.SetActive(false);
     }
+
+    /*void CheckSlots(Sprite newSp, string newTxt){
+        foreach(GameObject slot in Slots) {
+            if (slot.GetComponent<SpriteRenderer>().sprite.name = "empty") {
+                slot.GetComponent<SpriteRenderer>().sprite = newSp;
+                inventoryTxt.text = newTxt;
+                gameObject.SetActive(false);
+                break;
+            } else {
+                continue;
+            }
+        }
+    } */
 }
